@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>webvr controller</title>
+<style>
+body {
+  background: #000;
+  margin: 0;
+}
+</style>
+</head>
+<script type="importmap">
+{
+	"imports": {
+		"three": "https://code4fukui.github.io/three.js/build/three.module.js",
+		"three/addons/": "https://code4fukui.github.io/three.js/examples/jsm/"
+	}
+}
+</script>
+<body>
+<script type="module">
+import * as THREE from "three";
+import { ARButton } from "three/addons/webxr/ARButton.js";
+import { XRControllerModelFactory } from "three/addons/webxr/XRControllerModelFactory.js";
+import { createTextWindow } from "../createTextWindow.js";
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera();
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.xr.enabled = true;
+
+const debugc = createTextWindow(0, 0, -2);
+scene.add(debugc);
+
+const controllerModelFactory = new XRControllerModelFactory();
+const controllerModels = [];
+for (let i = 0; i < 2; i++) {
+  const controllerGrip = renderer.xr.getControllerGrip(i);
+  if (!controllerGrip) continue;
+  const controllerModel = controllerModelFactory.createControllerModel(controllerGrip);
+  controllerGrip.add(controllerModel);
+  scene.add(controllerGrip);
+
+  const debug = createTextWindow((i - .5) * 1.5, 0, -2);
+  scene.add(debug);
+
+  controllerGrip.addEventListener("select", e => debugc.log("select"));
+  controllerGrip.addEventListener("selectstart", e => debugc.log("selectstart"));
+  controllerGrip.addEventListener("selectend", e => debugc.log("selectend"));
+  controllerGrip.addEventListener("squeeze", e => debugc.log("squeeze"));
+  controllerGrip.addEventListener("squeezestart", e => debugc.log("squeezstart"));
+  controllerGrip.addEventListener("squeezeend", e => debugc.log("squeezeend"));
+  controllerGrip.addEventListener("end", e => debugc.log("end"));
+
+  controllerModel.debug = debug;
+  controllerModels.push(controllerModel);
+}
+
+renderer.setAnimationLoop(() => {
+  for (const c of controllerModels) {
+    if (c.motionController) {
+      c.debug.set(c.motionController.data);
+    }
+  }
+  renderer.render(scene, camera);
+});
+
+document.body.appendChild(ARButton.createButton(renderer));
+
+</script>
+</body>
+</html>
