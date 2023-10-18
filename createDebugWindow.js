@@ -6,7 +6,7 @@ const obj2s = (o) => {
   return s;
 };
 
-export const createTextWindow = (x = 0, y = 0, z = -2, width = 400, height = 800) => {
+export const createDebugWindow = (x = 0, y = 0, z = -2, width = 400, height = 800) => {
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;

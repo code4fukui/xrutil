@@ -20,7 +20,7 @@ body {
 import * as THREE from "three";
 import { ARButton } from "three/addons/webxr/ARButton.js";
 import { XRControllerModelFactory } from "three/addons/webxr/XRControllerModelFactory.js";
-import { createTextWindow } from "../createTextWindow.js";
+import { createDebugWindow } from "../createDebugWindow.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera();
@@ -28,7 +28,7 @@ const camera = new THREE.PerspectiveCamera();
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.xr.enabled = true;
 
-const debugc = createTextWindow(0, 0, -2);
+const debugc = createDebugWindow(0, 0, -2);
 scene.add(debugc);
 
 const controllerModelFactory = new XRControllerModelFactory();
@@ -40,7 +40,7 @@ for (let i = 0; i < 2; i++) {
   controllerGrip.add(controllerModel);
   scene.add(controllerGrip);
 
-  const debug = createTextWindow((i - .5) * 1.5, 0, -2);
+  const debug = createDebugWindow((i - .5) * 1.5, 0, -2);
   scene.add(debug);
 
   controllerGrip.addEventListener("select", e => debugc.log("select"));
