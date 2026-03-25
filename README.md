@@ -1,32 +1,21 @@
 # xrutil
-日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
 
-A utility library for creating debug windows in Three.js-based XR (AR/VR) applications.
+A Web/Code project by [Code for FUKUI](https://github.com/code4fukui).
 
-## Demo
-The `examples/controller.html` file demonstrates the `createDebugWindow` function, which creates an on-screen debug window that displays data from connected XR controllers.
+**Live demo**: https://code4fukui.github.io/xrutil/
 
-## Features
-- Create a canvas-based debug window that can display text and update in real-time
-- Attach the debug window to a Three.js mesh for easy positioning in the scene
-- Log messages and display object data in the debug window
+## Technology Stack
 
-## Usage
-To use the `createDebugWindow` function, import it from the `createDebugWindow.js` file and call it with the desired position and size parameters:
 
-```javascript
-import { createDebugWindow } from "./createDebugWindow.js";
+## Installation & Setup
 
-const debugWindow = createDebugWindow(0, 0, -2, 400, 800);
-scene.add(debugWindow);
-```
+No build step required. Clone the repository and open `index.html` in a browser,
+or visit the live demo at https://code4fukui.github.io/xrutil/
 
-You can then update the debug window's contents using the `set` and `log` methods:
+## Contributing
 
-```javascript
-debugWindow.set(someObject);
-debugWindow.log("Hello, debug window!");
-```
+Contributions are welcome. Please open an issue or pull request on GitHub.
 
 ## License
-This project is licensed under the [MIT License](LICENSE).
+
+MIT License. See [LICENSE](./LICENSE) for details.
